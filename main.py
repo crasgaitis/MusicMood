@@ -17,11 +17,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+import os
+from config import API_KEY
+
+os.environ["OPENAI_API_KEY"] = API_KEY
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 st.write('Mood Music')
 
-with open("4_class_model.pkl", 'rb') as file:
-    clf = pickle.load(file)
+with open("4_class_model.pkl", 'rb') as f:
+    clf = pickle.load(f)
 
 
 try:
