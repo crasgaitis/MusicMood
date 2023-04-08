@@ -26,27 +26,8 @@ def make_music(key_input):
 
   # create MIDI file
   
-  pygame.init()
-  pygame.midi.init()
-
-  # Set up a midi output device
-  output_device = pygame.midi.Output(0)
-
-  # Play the melody notes
-  for element in melody.flat.notes:
-      pitch = element.pitch.midi
-      duration_in_ms = int(element.duration.quarterLength * 1000)
-      volume = 100
-      output_device.note_on(pitch, volume)
-      pygame.time.wait(duration_in_ms)
-      output_device.note_off(pitch)
-
-  # Close the midi output device
-  output_device.close()
-
-  # Quit Pygame midi module
-  pygame.midi.quit()
-  pygame.quit()
+  mf = midi.translate.streamToMidiFile(melody)
+  return mf
 
 
 def get_key(type):
