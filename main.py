@@ -58,15 +58,14 @@ try:
         midi_data = io.BytesIO()
         mf.write(midi_data)
         midi_data.seek(0)
+        
         st.download_button(
             label='Download MIDI',
             data=midi_data.getvalue(),
             file_name='music.mid',
             mime='audio/midi')
-
-        # Save MIDI file to local machine
-        with open('your_file_path', 'wb') as f:
-            mf.write(f)
+        
+        st.write('button above this')
         
         # midi_path = (make_music(get_key(get_ma_mi(user_set))))
         # midi_audio = AudioSegment.from_file(midi_path, format="mid")
