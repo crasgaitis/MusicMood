@@ -5,10 +5,14 @@ st.write('please work')
 
 try:
     user_set = st.file_uploader("upload file", type={"csv"})
-    analyze(user_set)    
-    make_music(get_key(get_ma_mi(user_set)))
     
-    st.audio()
+    submit = st.button('Go')
+    
+    if submit:    
+        analyze(user_set)    
+        make_music(get_key(get_ma_mi(user_set)))
+        
+        st.audio()
     
     
 except:
