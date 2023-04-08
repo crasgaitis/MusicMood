@@ -1,4 +1,4 @@
-from utils import make_music, get_key, get_ma_mi, analyze
+from utils import get_key, get_ma_mi, analyze
 import streamlit as st 
 from pydub import AudioSegment
 from pydub.playback import play
