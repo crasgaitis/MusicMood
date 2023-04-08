@@ -2,7 +2,8 @@ from music21 import *
 import random
 import numpy as np
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from midi2audio import FluidSynth
+from pydub import AudioSegment
+from pydub.playback import play
 
 def make_music(key_input):
 
@@ -24,6 +25,10 @@ def make_music(key_input):
   # create MIDI file
   midi_filename = 'output.mid'
   melody.write('midi', fp=midi_filename)
+  
+  midi_audio = AudioSegment.from_file(midi_filename, format="mid")
+  play(midi_audio)
+
 
 def get_key(type):
   if type == "major":
@@ -52,12 +57,6 @@ def analyze(set):
 
   set['mh_state'] = sentiment_scores
   
-def music_convert(file):
-  fluidsynth = FluidSynth()
-  midi_data = converter.parse(file)
-  midi_data.show('midi')
-  return fluidsynth.midi_to_audio(midi_data)
-
 # test
 
 # analyze(user_set)
