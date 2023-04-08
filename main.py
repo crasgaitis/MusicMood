@@ -14,16 +14,20 @@ import tempfile
 import pygame
 import io
 import pandas as pd
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
 
 st.write('Mood Music')
 
-# with open("4_class_model.pkl", 'rb') as file:
-#     clf = pickle.load(file)
+with open("4_class_model.pkl", 'rb') as file:
+    clf = pickle.load(file)
 
 
 try:
     user_set = st.file_uploader("upload file", type={"csv"})
     user_set = pd.read_csv(user_set)
+    user_set.drop('label')
     
     submit = st.button('Go')
     
@@ -56,7 +60,7 @@ try:
         mf = midi.translate.streamToMidiFile(melody)
         
         midi_data = io.BytesIO()
-        mf.writestr(midi_data)
+        # mf.writestr(midi_data)
         st.write(midi_data)
         midi_data.seek(0)
         
@@ -65,8 +69,29 @@ try:
             data=midi_data.getvalue(),
             file_name='music.mid',
             mime='audio/midi')
+
+        for i, row in user_set.iterrows():
+            text = row['text']
+            prediction = clf.predict([text])[0]
+            user_set.loc[i, 'label'] = prediction
         
-        st.write('button above this')
+        st.write('now')
+        st.write(user_set)
+
+        
+        emotion_map = {
+            'joy' : 0,
+            'fear' : 1,
+            'anger' : 2,
+            'sadness' : 3,
+        }
+
+        user_set['label'] = user_set['label'].map(lambda x: emotion_map[x])
+        user_set['label'] = pd.Categorical(user_set['label'], categories=emotion_map.values())
+
+        sns.countplot(x='label', data=user_set)
+        plt.title('Distribution of mental health states')
+        plt.ylabel('Count')
         
         # midi_path = (make_music(get_key(get_ma_mi(user_set))))
         # midi_audio = AudioSegment.from_file(midi_path, format="mid")
