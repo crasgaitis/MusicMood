@@ -2,6 +2,7 @@ from music21 import *
 import random
 import numpy as np
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from midi2audio import FluidSynth
 
 def make_music(key_input):
 
@@ -50,7 +51,12 @@ def analyze(set):
       sentiment_scores.append(score['compound'])
 
   set['mh_state'] = sentiment_scores
-
+  
+def music_convert(file):
+  fluidsynth = FluidSynth()
+  midi_data = converter.parse(file)
+  midi_data.show('midi')
+  return fluidsynth.midi_to_audio(midi_data)
 
 # test
 
