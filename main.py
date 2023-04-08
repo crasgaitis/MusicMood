@@ -25,8 +25,9 @@ openai.api_key = os.environ["OPENAI_API_KEY"]
 
 st.write('Mood Music')
 
-with open("4_class_model.pkl", 'rb') as f:
-    clf = pickle.load(f, protocol=4)
+filename = '4_class_model.pkl'
+clf = pickle.load(open(filename, 'rb'))
+
 
 
 try:
@@ -93,6 +94,9 @@ try:
 
         user_set['label'] = user_set['label'].map(lambda x: emotion_map[x])
         user_set['label'] = pd.Categorical(user_set['label'], categories=emotion_map.values())
+        
+        emotion = user_set['label'].value_counts().idxmax()
+        
 
         sns.countplot(x='label', data=user_set)
         plt.title('Distribution of mental health states')
