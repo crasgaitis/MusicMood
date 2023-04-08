@@ -13,6 +13,7 @@ from pydub.playback import play
 import tempfile
 import pygame
 import io
+import pandas as pd
 
 st.write('Mood Music')
 
@@ -52,20 +53,23 @@ def make_music(key_input):
     file_name='music.mid',
     mime='audio/midi')
 
+
 try:
     user_set = st.file_uploader("upload file", type={"csv"})
+    data = pd.read_csv(user_set)
     
-    # submit = st.button('Go')
+    submit = st.button('Go')
     
-    # if submit:    
-    analyze(user_set)  
-    st.write(user_set)
-    
-    midi_file = make_music(get_key(get_ma_mi(user_set)))
-    
-    midi_file.open("output.mid", "wb")
-    midi_file.write()
-    midi_file.close()
+    if submit:    
+        analyze(user_set) 
+        st.write('submitted') 
+        st.write(user_set)
+        
+        midi_file = make_music(get_key(get_ma_mi(user_set)))
+        
+        midi_file.open("output.mid", "wb")
+        midi_file.write()
+        midi_file.close()
         
         # midi_path = (make_music(get_key(get_ma_mi(user_set))))
         # midi_audio = AudioSegment.from_file(midi_path, format="mid")
@@ -77,7 +81,23 @@ try:
         
         # generate prompt
         
-  
+        def generate_response(prompt):
+            response = openai.Completion.create(
+            engine="davinci",
+            prompt=prompt,
+            max_tokens=30,
+            n=1,
+            stop=None,
+            temperature=0.5,
+        )
+
+        message = response.choices[0].text.strip()
+    
+        string = f"Give a caption for an image that is a metaphorical symbol of {emotion}:"
+        
+        suggested_response = generate_response(string)
+        suggested_response = suggested_response.split(":")[0]
+        suggested_response = suggested_response.strip().replace("'", "")        
     
 except:
     pass
