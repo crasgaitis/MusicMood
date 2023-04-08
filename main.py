@@ -56,7 +56,7 @@ def make_music(key_input):
 
 try:
     user_set = st.file_uploader("upload file", type={"csv"})
-    data = pd.read_csv(user_set)
+    user_set = pd.read_csv(user_set)
     
     submit = st.button('Go')
     
