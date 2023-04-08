@@ -4,6 +4,7 @@ import numpy as np
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from pydub import AudioSegment
 from pydub.playback import play
+import tempfile
 
 def make_music(key_input):
 
@@ -23,11 +24,13 @@ def make_music(key_input):
       melody.append(note_obj)
 
   # create MIDI file
-  midi_filename = 'output.mid'
-  melody.write('midi', fp=midi_filename)
   
-  midi_audio = AudioSegment.from_file(midi_filename, format="mid")
-  play(midi_audio)
+  with tempfile.NamedTemporaryFile(suffix='.mid') as midi_file: 
+    midi_filename = 'output.mid'
+    melody.write('midi', fp=midi_filename)
+  
+    midi_audio = AudioSegment.from_file(midi_filename, format="mid")
+    return midi_audio
 
 
 def get_key(type):
