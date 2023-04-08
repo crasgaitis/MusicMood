@@ -25,8 +25,8 @@ openai.api_key = os.environ["OPENAI_API_KEY"]
 
 st.write('Mood Music')
 
-# with open("4_class_model.pkl", 'rb') as f:
-#     clf = pickle.load(f, protocol=4)
+with open("4_class_model.pkl", 'rb') as f:
+    clf = pickle.load(f, protocol=4)
 
 
 try:
