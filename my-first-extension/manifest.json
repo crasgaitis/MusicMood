@@ -1,15 +1,16 @@
 {
   "version": "0.1",
   "manifest_version": 2,
-  "name": "spooky spook",
-  "author": "Tal Wolman",
+  "name": "Music Mood",
+  "author": "Catherine Rasgaitis, Hyunggil Woo, Jay Carlson, Leo Li",
   "description": "my description",
   "icons": {
+    
     "128": "icon.png"
   },
   "content_scripts" : [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["https://github.com/crasgaitis/MusicMood"],
       "js": ["content.js"],
       "css": ["content.css"]
     }
