@@ -11,12 +11,17 @@ try:
     submit = st.button('Go')
     
     if submit:    
-        analyze(user_set)    
-        midi_path = (make_music(get_key(get_ma_mi(user_set))))
-        midi_audio = AudioSegment.from_file(midi_path, format="mid")
-        play(midi_audio)
+        analyze(user_set)  
+        st.write(user_set)
         
-        st.audio(midi_audio.export(format="mp3"), format="mp3")
+          
+        make_music(get_key(get_ma_mi(user_set)))
+        
+        # midi_path = (make_music(get_key(get_ma_mi(user_set))))
+        # midi_audio = AudioSegment.from_file(midi_path, format="mid")
+        # play(midi_audio)
+        
+        # st.audio(midi_audio.export(format="mp3"), format="mp3")
         
         
     

@@ -5,6 +5,7 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from pydub import AudioSegment
 from pydub.playback import play
 import tempfile
+import pygame
 
 def make_music(key_input):
 
@@ -26,10 +27,15 @@ def make_music(key_input):
   # create MIDI file
   
   with tempfile.NamedTemporaryFile(suffix='.mid') as midi_file: 
-    midi_filename = 'output.mid'
+    midi_filename = midi_file.name
     melody.write('midi', fp=midi_filename)
-  
-    return midi_filename
+
+    # play MIDI file using pygame
+    pygame.init()
+    pygame.mixer.music.load(midi_filename)
+    pygame.mixer.music.play()
+    while pygame.mixer.music.get_busy():
+        continue
 
 
 def get_key(type):
