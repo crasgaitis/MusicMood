@@ -2,6 +2,15 @@ console.log('hello! I am a content script');
 
 const p = document.querySelectorAll('p');
 
+// accepts user inputs from a text box.
+const textbos = document.getElementById("textbox");
+
+testbox.addEventListener("input", (event) => {
+  const text = event.target.value;
+  chrome.runtime.sendMessage({ type: "sentimentAnalysis", text})
+});
+
+
 for (els of p) {
   els.style.transition = '15s';
   els.style.transform = 'translateX(1000px)';
