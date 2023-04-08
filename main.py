@@ -6,7 +6,7 @@ import pickle
 
 st.write('Mood Music')
 
-with open("model_new.pkl", 'rb') as file:
+with open("4_class_model.pkl", 'rb') as file:
     clf = pickle.load(file)
 
 try:
