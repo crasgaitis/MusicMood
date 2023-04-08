@@ -26,7 +26,7 @@ openai.api_key = os.environ["OPENAI_API_KEY"]
 st.write('Mood Music')
 
 with open("4_class_model.pkl", 'rb') as f:
-    clf = pickle.load(f)
+    clf = pickle.load(f, protocol=4)
 
 
 try:
@@ -117,14 +117,15 @@ try:
             stop=None,
             temperature=0.5,
         )
-
-        message = response.choices[0].text.strip()
     
         string = f"Give a caption for an image that is a metaphorical symbol of {emotion}:"
         
         suggested_response = generate_response(string)
         suggested_response = suggested_response.split(":")[0]
-        suggested_response = suggested_response.strip().replace("'", "")        
+        suggested_response = suggested_response.strip().replace("'", "")    
+        
+        st.write('response below')
+        st.write(suggested_response)    
     
 except:
     pass
