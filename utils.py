@@ -52,7 +52,6 @@ def analyze(set):
   set['mh_state'] = sentiment_scores
 
 
-
 # test
 
 analyze(user_set)
