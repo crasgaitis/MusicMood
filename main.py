@@ -6,8 +6,8 @@ import pickle
 
 st.write('Mood Music')
 
-with open("4_class_model.pkl", 'rb') as file:
-    clf = pickle.load(file)
+# with open("4_class_model.pkl", 'rb') as file:
+#     clf = pickle.load(file)
 
 try:
     user_set = st.file_uploader("upload file", type={"csv"})
@@ -31,6 +31,26 @@ try:
         # st.audio(midi_audio.export(format="mp3"), format="mp3")
         
         
+        
+        # generate prompt
+        
+        def generate_response(prompt):
+            response = openai.Completion.create(
+            engine="davinci",
+            prompt=prompt,
+            max_tokens=30,
+            n=1,
+            stop=None,
+            temperature=0.5,
+        )
+
+        message = response.choices[0].text.strip()
+    
+        string = f"Give a caption for an image that is a metaphorical symbol of {emotion}:"
+        
+        suggested_response = generate_response(string)
+        suggested_response = suggested_response.split(":")[0]
+        suggested_response = suggested_response.strip().replace("'", "")        
     
 except:
     pass
