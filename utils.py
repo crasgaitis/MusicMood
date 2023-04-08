@@ -38,4 +38,4 @@ def analyze(set):
 
 # analyze(user_set)
 
-make_music(get_key('major'))
+# make_music(get_key('major'))
