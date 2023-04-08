@@ -21,39 +21,6 @@ st.write('Mood Music')
 #     clf = pickle.load(file)
 
 
-def make_music(key_input):
-
-  key_str = key_input
-  key_obj = key.Key(key_str)
-  time_signature = meter.TimeSignature('4/4')
-
-  # melody: random notes
-  melody = stream.Stream()
-  melody.append(key_obj)
-  melody.append(time_signature)
-
-  for i in range(8):
-      note_name = random.choice(scale.MajorScale(key_str).getPitches() + scale.MelodicMinorScale(key_str).getPitches())
-      note_obj = note.Note(note_name)
-      note_obj.duration = duration.Duration(random.choice([0.25, 0.5, 1, 2]))
-      melody.append(note_obj)
-
-  # create MIDI file
-  
-  mf = midi.translate.streamToMidiFile(melody)
-  
-  midi_data = io.BytesIO()
-  mf.write(midi_data)
-  midi_data.seek(0)
-
-  # Create download button for MIDI file
-  st.download_button(
-    label='Download MIDI',
-    data=midi_data.getvalue(),
-    file_name='music.mid',
-    mime='audio/midi')
-
-
 try:
     user_set = st.file_uploader("upload file", type={"csv"})
     user_set = pd.read_csv(user_set)
@@ -65,8 +32,41 @@ try:
         st.write('submitted') 
         st.write(user_set)
         
-        st.write((get_key(get_ma_mi(user_set))))
+        key_input = (get_key(get_ma_mi(user_set)))
+        st.write(key_input)
+        # thing
         
+        key_str = key_input
+        key_obj = key.Key(key_str)
+        time_signature = meter.TimeSignature('4/4')
+
+        # melody: random notes
+        melody = stream.Stream()
+        melody.append(key_obj)
+        melody.append(time_signature)
+
+        for i in range(8):
+            note_name = random.choice(scale.MajorScale(key_str).getPitches() + scale.MelodicMinorScale(key_str).getPitches())
+            note_obj = note.Note(note_name)
+            note_obj.duration = duration.Duration(random.choice([0.25, 0.5, 1, 2]))
+            melody.append(note_obj)
+
+        # create MIDI file
+        
+        mf = midi.translate.streamToMidiFile(melody)
+        
+        midi_data = io.BytesIO()
+        mf.write(midi_data)
+        midi_data.seek(0)
+
+        # Create download button for MIDI file
+        st.download_button(
+            label='Download MIDI',
+            data=midi_data.getvalue(),
+            file_name='music.mid',
+            mime='audio/midi')
+        
+        # thing
         midi_file.open("output.mid", "wb")
         midi_file.write()
         midi_file.close()
