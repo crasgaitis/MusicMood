@@ -54,6 +54,6 @@ def analyze(set):
 
 # test
 
-analyze(user_set)
+# analyze(user_set)
 
 make_music(get_key('major'))
