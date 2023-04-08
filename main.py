@@ -65,7 +65,7 @@ try:
         st.write('submitted') 
         st.write(user_set)
         
-        midi_file = make_music(get_key(get_ma_mi(user_set)))
+        st.write((get_key(get_ma_mi(user_set))))
         
         midi_file.open("output.mid", "wb")
         midi_file.write()
