@@ -12,10 +12,9 @@ try:
     
     if submit:    
         analyze(user_set)    
-        play(make_music(get_key(get_ma_mi(user_set))))
-        
-        
-    
+        midi_path = (make_music(get_key(get_ma_mi(user_set))))
+        midi_audio = AudioSegment.from_file(midi_path, format="mid")
+        play(midi_audio)
     
 except:
     pass

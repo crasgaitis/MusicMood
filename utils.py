@@ -29,8 +29,7 @@ def make_music(key_input):
     midi_filename = 'output.mid'
     melody.write('midi', fp=midi_filename)
   
-    midi_audio = AudioSegment.from_file(midi_filename, format="mid")
-    return midi_audio
+    return midi_filename
 
 
 def get_key(type):
