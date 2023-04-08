@@ -16,7 +16,7 @@ try:
         midi_audio = AudioSegment.from_file(midi_path, format="mid")
         play(midi_audio)
         
-        st.audio(midi_audio, format='audio')
+        st.audio(midi_audio.export(format="mp3"), format="mp3")
         
         
     
