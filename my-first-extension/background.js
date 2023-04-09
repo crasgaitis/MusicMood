@@ -11,6 +11,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
+chrome.action.onClicked.addListener((tab) => {
+  chrome.tabs.sendMessage(tab.id, { type: "openPopup" });
+});
+
 function analyzeSentiment(text) {
   // perform sentiment analysis and return a score between -1 and 1
 }

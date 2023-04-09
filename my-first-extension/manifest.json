@@ -23,9 +23,6 @@
       "32": "icon.png"
     },
     "default_popup": "popup.html",
-    "default_title": "disco"
-  },
-  "chrome_url_overrides": {
-    "newtab": "a-3/index.html"
+    "default_title": "MusicMood"
   }
  }
